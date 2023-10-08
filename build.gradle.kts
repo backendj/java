@@ -10,8 +10,6 @@ import org.gradle.api.JavaVersion
 plugins {
     // Apply the java plugin to add support for Java
     `java`
-    // Apply the application plugin to add support for building an application
-    `application`
 }
 
 repositories {
@@ -26,7 +24,14 @@ java {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.8.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter-engine")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
 
